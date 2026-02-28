@@ -1,1 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VacIA · Empresa</title>
 
+<style>
+body{
+    margin:0;
+    background:#000;
+    font-family:Arial, Helvetica, sans-serif;
+    overflow-x:hidden;
+    color:white;
+}
+
+/* ===== NAVBAR OCULTA ===== */
+.navbar{
+    position:fixed;
+    top:-100px;
+    left:50%;
+    transform:translateX(-50%);
+    width:80%;
+    height:70px;
+    background:#111;
+    border-radius:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 20px 60px rgba(0,0,0,0.9);
+    transition:top 0.6s ease;
+    z-index:20;
+}
+
+.navbar.active{
+    top:25px;
+}
+
+.navbar a{
+    margin:0 20px;
+    text-decoration:none;
+    color:#aaa;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.navbar a:hover{
+    color:white;
+}
+
+/* CONTENIDO */
+.content{
+    max-width:900px;
+    margin:200px auto 100px auto;
+    padding:0 30px;
+    text-align:left;
+}
+
+.content h1{
+    font-size:60px;
+    font-weight:300;
+    letter-spacing:10px;
+    margin-bottom:40px;
+}
+
+.content p{
+    font-size:18px;
+    line-height:1.8;
+    color:#bbb;
+    margin-bottom:25px;
+}
+
+/* GLITCH */
+.glitch{
+    animation:glitchEffect 0.4s linear;
+}
+
+@keyframes glitchEffect{
+    0%{ filter:contrast(1) hue-rotate(0deg); transform:translate(0); }
+    25%{ filter:contrast(2) hue-rotate(90deg); transform:translate(-5px,5px); }
+    50%{ filter:contrast(0.5) hue-rotate(180deg); transform:translate(5px,-5px); }
+    75%{ filter:contrast(3) hue-rotate(270deg); transform:translate(-5px,-5px); }
+    100%{ filter:contrast(1) hue-rotate(0deg); transform:translate(0); }
+}
+
+/* Footer */
+.footer{
+    position:fixed;
+    bottom:20px;
+    width:100%;
+    text-align:center;
+    font-size:12px;
+    color:#555;
+    letter-spacing:2px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar" id="navbar">
+    <a href="empresa.html">Empresa</a>
+    <a href="#">Derechos</a>
+    <a href="index.html">Inicio</a>
+</div>
+
+<div class="content" id="mainContent">
+    <h1>EMPRESA</h1>
+
+    <p>
+        Somos VacIA Entertainment. Una empresa de entretenimiento multimedia dedicada a la creación, producción y desarrollo de proyectos artísticos y audiovisuales.
+    </p>
+
+    <p>
+        Nuestro enfoque integra música, artistas, producción discográfica, estudios cinematográficos, desarrollo audiovisual y propuestas creativas que expanden el alcance de cada obra.
+    </p>
+
+    <p>
+        Trabajamos en la construcción de universos narrativos, experiencias sonoras y proyectos visuales que conectan con nuevas audiencias y redefinen el entretenimiento contemporáneo.
+    </p>
+
+    <p>
+        VacIA Entertainment funciona como un espacio de creación integral donde convergen sello discográfico, producción musical, animación, desarrollo audiovisual y dirección creativa.
+    </p>
+</div>
+
+<div class="footer">
+    Todos los derechos observados · VacIA Entertainment
+</div>
+
+<script>
+let inputBuffer = "";
+
+document.addEventListener("keydown", function(e){
+    inputBuffer += e.key;
+
+    if(inputBuffer.endsWith("333")){
+        activateSecret();
+        inputBuffer = "";
+    }
+
+    if(inputBuffer.length > 10){
+        inputBuffer = "";
+    }
+});
+
+function activateSecret(){
+    const content = document.getElementById("mainContent");
+    const navbar = document.getElementById("navbar");
+
+    content.classList.add("glitch");
+
+    setTimeout(()=>{
+        navbar.classList.add("active");
+        content.classList.remove("glitch");
+    },400);
+}
+</script>
+
+</body>
+</html>
