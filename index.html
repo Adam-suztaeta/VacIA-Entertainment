@@ -41,11 +41,7 @@ body{
     text-decoration:none;
     color:#aaa;
     font-size:14px;
-    transition:0.3s;
-}
-
-.navbar a:hover{
-    color:white;
+    pointer-events:none; /* 🔒 nada clickeable */
 }
 
 /* ===== CENTRO ===== */
@@ -65,12 +61,24 @@ body{
     margin-top:40px;
 }
 
-/* ===== CUBO BLANCO SÓLIDO ===== */
+/* BOTÓN DEV */
+.dev-btn{
+    margin-top:20px;
+    padding:8px 18px;
+    background:white;
+    color:black;
+    border:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+/* ===== CUBO ===== */
 .cube-wrapper{
     width:220px;
     height:220px;
     margin:auto;
     perspective:900px;
+    position:relative;
 }
 
 .cube{
@@ -98,6 +106,17 @@ body{
 @keyframes rotateCube{
     0%{ transform:rotateX(0deg) rotateY(0deg); }
     100%{ transform:rotateX(360deg) rotateY(360deg); }
+}
+
+/* MENSAJE 333 */
+.cube-message{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:60px;
+    font-weight:bold;
+    display:none;
 }
 
 /* ===== GLITCH ===== */
@@ -129,26 +148,22 @@ body{
 <body>
 
 <div class="navbar" id="navbar">
-    <a href="#">Empresa</a>
-    <a href="#">Derechos</a>
-    <a href="#">VacIA Animations</a>
-    <a href="#">VacIA Music</a>
-    <a href="/projectsaturn/">▧▧▧▧▧▧▧ ▧▧▧▧▧▧</a>
+    <a>Empresa</a>
+    <a>Derechos</a>
+    <a>VacIA Animations</a>
+    <a>VacIA Music</a>
+    <a id="saturn">▧▧▧▧▧▧▧ ▧▧▧▧▧▧</a>
 </div>
 
 <div class="center" id="mainContent">
     <div class="cube-wrapper">
-        <div class="cube">
-            <div class="face front"></div>
-            <div class="face back"></div>
-            <div class="face right"></div>
-            <div class="face left"></div>
-            <div class="face top"></div>
-            <div class="face bottom"></div>
-        </div>
+        <div class="cube"></div>
+        <div class="cube-message" id="cubeMessage">333</div>
     </div>
 
     <div class="title">VacIA</div>
+
+    <button class="dev-btn" onclick="activateSecret()">333</button>
 </div>
 
 <div class="footer">
@@ -157,16 +172,25 @@ body{
 
 <script>
 let inputBuffer = "";
+let count3 = 0;
 
 document.addEventListener("keydown", function(e){
-    inputBuffer += e.key;
 
-    if(inputBuffer.endsWith("333")){
-        activateSecret();
-        inputBuffer = "";
-    }
+    if(e.key === "3"){
+        count3++;
+        inputBuffer += "3";
 
-    if(inputBuffer.length > 10){
+        if(inputBuffer.endsWith("333")){
+            activateSecret();
+            inputBuffer = "";
+        }
+
+        if(count3 === 33){
+            showCubeMessage();
+            count3 = 0;
+        }
+
+    }else{
         inputBuffer = "";
     }
 });
@@ -182,7 +206,23 @@ function activateSecret(){
         content.classList.remove("glitch");
     },400);
 }
+
+function showCubeMessage(){
+    const msg = document.getElementById("cubeMessage");
+    msg.style.display="block";
+    setTimeout(()=>msg.style.display="none",2000);
+}
+
+/* TITILEO SATURN */
+let saturn = document.getElementById("saturn");
+
+setInterval(()=>{
+    saturn.textContent="Project Saturn";
+    setTimeout(()=>{
+        saturn.textContent="▧▧▧▧▧▧▧ ▧▧▧▧▧▧";
+    },500);
+},6000);
 </script>
 
 </body>
-</html>
+</html> 
