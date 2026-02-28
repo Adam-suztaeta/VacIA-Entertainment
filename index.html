@@ -14,29 +14,28 @@ body{
     color:white;
 }
 
-/* ===== NAVBAR 3D ===== */
+/* ===== NAVBAR 3D CENTRADA ===== */
 .navbar{
     position:fixed;
-    top:20px;
+    top:25px;
     left:50%;
     transform:translateX(-50%);
-    width:85%;
+    width:70%;
     height:70px;
     background:linear-gradient(145deg,#111,#1c1c1c);
-    border-radius:12px;
+    border-radius:14px;
     display:flex;
+    justify-content:center;
     align-items:center;
-    padding:0 40px;
     box-shadow:
-        0 10px 30px rgba(0,0,0,0.8),
-        inset 0 1px 2px rgba(255,255,255,0.1);
-    z-index:10;
+        0 15px 40px rgba(0,0,0,0.8),
+        inset 0 1px 2px rgba(255,255,255,0.08);
+    z-index:20;
 }
 
-/* Logo */
 .logo{
-    font-size:18px;
-    letter-spacing:6px;
+    font-size:20px;
+    letter-spacing:8px;
     cursor:pointer;
     color:#aaa;
     transition:0.3s;
@@ -46,29 +45,30 @@ body{
     color:white;
 }
 
-/* ===== MENU 3D ===== */
+/* ===== MENU QUE EMERGE DEL CUBO ===== */
 .menu{
     position:absolute;
-    top:90px;
-    left:40px;
-    width:240px;
-    background:linear-gradient(145deg,#111,#1a1a1a);
-    border-radius:10px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.8);
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%) scaleY(0);
     transform-origin:top;
-    transform:rotateX(-90deg);
-    transition:transform 0.4s ease;
+    width:260px;
+    background:linear-gradient(145deg,#111,#1a1a1a);
+    border-radius:12px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.9);
     display:flex;
     flex-direction:column;
+    transition:transform 0.6s cubic-bezier(.2,1,.3,1);
     overflow:hidden;
+    z-index:15;
 }
 
 .menu.active{
-    transform:rotateX(0deg);
+    transform:translate(-50%, 60px) scaleY(1);
 }
 
 .menu a{
-    padding:14px 20px;
+    padding:16px 20px;
     text-decoration:none;
     color:#aaa;
     font-size:14px;
@@ -87,10 +87,6 @@ body{
     padding-left:15px;
 }
 
-.submenu a{
-    font-size:13px;
-}
-
 /* ===== CENTRO ===== */
 .center{
     position:absolute;
@@ -100,19 +96,25 @@ body{
     text-align:center;
 }
 
-/* Texto 3D degradado */
+/* Texto 3D degradado + glitch */
 .title{
-    font-size:120px;
+    font-size:130px;
     letter-spacing:25px;
     font-weight:300;
-    background:linear-gradient(to bottom, #ffffff, #888888);
+    background:linear-gradient(to bottom, #ffffff, #777777);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
-    text-shadow:
-        0 5px 15px rgba(255,255,255,0.1),
-        0 10px 40px rgba(255,255,255,0.05);
     position:relative;
-    z-index:2;
+    z-index:5;
+    animation:glitch 6s infinite;
+}
+
+@keyframes glitch{
+    0%{transform:translate(0);}
+    2%{transform:translate(-2px,2px);}
+    4%{transform:translate(2px,-2px);}
+    6%{transform:translate(0);}
+    100%{transform:translate(0);}
 }
 
 /* ===== CUBO 3D ===== */
@@ -121,9 +123,9 @@ body{
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    width:200px;
-    height:200px;
-    perspective:800px;
+    width:220px;
+    height:220px;
+    perspective:900px;
 }
 
 .cube{
@@ -131,24 +133,30 @@ body{
     height:100%;
     position:relative;
     transform-style:preserve-3d;
-    animation:rotateCube 8s infinite linear;
+    animation:rotateCube 10s infinite linear;
+    transition:transform 0.4s ease;
+}
+
+.cube-wrapper:hover .cube{
+    animation-play-state:paused;
+    transform:rotateX(30deg) rotateY(30deg) scale(1.1);
 }
 
 .face{
     position:absolute;
-    width:200px;
-    height:200px;
+    width:220px;
+    height:220px;
     background:white;
     opacity:0.05;
     border:1px solid rgba(255,255,255,0.2);
 }
 
-.front  { transform: translateZ(100px); }
-.back   { transform: rotateY(180deg) translateZ(100px); }
-.right  { transform: rotateY(90deg) translateZ(100px); }
-.left   { transform: rotateY(-90deg) translateZ(100px); }
-.top    { transform: rotateX(90deg) translateZ(100px); }
-.bottom { transform: rotateX(-90deg) translateZ(100px); }
+.front  { transform: translateZ(110px); }
+.back   { transform: rotateY(180deg) translateZ(110px); }
+.right  { transform: rotateY(90deg) translateZ(110px); }
+.left   { transform: rotateY(-90deg) translateZ(110px); }
+.top    { transform: rotateX(90deg) translateZ(110px); }
+.bottom { transform: rotateX(-90deg) translateZ(110px); }
 
 @keyframes rotateCube{
     0%{ transform:rotateX(0deg) rotateY(0deg); }
@@ -162,8 +170,22 @@ body{
     width:100%;
     text-align:center;
     font-size:12px;
-    color:#555;
+    color:#444;
     letter-spacing:2px;
+}
+
+/* Texto censurado titilando */
+.censored{
+    animation:flicker 5s infinite;
+}
+
+@keyframes flicker{
+    0%,95%,100%{opacity:1;}
+    96%{opacity:0;}
+    97%{opacity:1;}
+    98%{
+        content:"Project Saturn";
+    }
 }
 </style>
 </head>
@@ -171,22 +193,10 @@ body{
 <body>
 
 <div class="navbar">
-    <div class="logo" onclick="toggleMenu()">vacía</div>
-
-    <div class="menu" id="menu">
-        <a href="#">Empresa</a>
-        <a href="#">Derechos</a>
-        <a href="#" onclick="toggleSubmenu(event)">Proyectos ▾</a>
-
-        <div class="submenu" id="submenu">
-            <a href="#">Vacia Animations</a>
-            <a href="#">Vacia Music</a>
-            <a href="/projectsaturn/">▧▧▧▧▧▧▧ ▧▧▧▧▧▧</a>
-        </div>
-    </div>
+    <div class="logo" onclick="toggleMenu()">VacIA</div>
 </div>
 
-<div class="cube-wrapper">
+<div class="cube-wrapper" onclick="toggleMenu()">
     <div class="cube">
         <div class="face front"></div>
         <div class="face back"></div>
@@ -197,17 +207,31 @@ body{
     </div>
 </div>
 
+<div class="menu" id="menu">
+    <a href="#">Empresa</a>
+    <a href="#">Derechos</a>
+    <a href="#" onclick="toggleSubmenu(event)">Proyectos ▾</a>
+
+    <div class="submenu" id="submenu">
+        <a href="#">VacIA Animations</a>
+        <a href="#">VacIA Music</a>
+        <a href="/projectsaturn/" id="secretLink">▧▧▧▧▧▧▧ ▧▧▧▧▧▧</a>
+    </div>
+</div>
+
 <div class="center">
     <div class="title">VacIA</div>
 </div>
 
 <div class="footer">
-    Todos los derechos reservados · VacIA Entertainment
+    Todos los derechos observados · VacIA Entertainment
 </div>
 
 <script>
 function toggleMenu(){
-    document.getElementById("menu").classList.toggle("active");
+    setTimeout(()=>{
+        document.getElementById("menu").classList.toggle("active");
+    },200); // pequeño retraso incómodo
 }
 
 function toggleSubmenu(e){
@@ -215,6 +239,15 @@ function toggleSubmenu(e){
     const submenu = document.getElementById("submenu");
     submenu.style.display = submenu.style.display === "flex" ? "none" : "flex";
 }
+
+/* Titileo revelando Project Saturn */
+setInterval(()=>{
+    const link = document.getElementById("secretLink");
+    link.textContent = "Project Saturn";
+    setTimeout(()=>{
+        link.textContent = "▧▧▧▧▧▧▧ ▧▧▧▧▧▧";
+    },200);
+},6000);
 </script>
 
 </body>
