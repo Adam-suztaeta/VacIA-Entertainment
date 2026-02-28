@@ -3,88 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VacIA Entertainment</title>
+<title>VacIA</title>
 
 <style>
 body{
     margin:0;
     background:#000;
-    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     overflow:hidden;
     color:white;
 }
 
-/* ===== NAVBAR 3D CENTRADA ===== */
+/* ===== NAVBAR OCULTA ===== */
 .navbar{
     position:fixed;
-    top:25px;
+    top:-100px;
     left:50%;
     transform:translateX(-50%);
-    width:70%;
-    height:70px;
-    background:linear-gradient(145deg,#111,#1c1c1c);
-    border-radius:14px;
+    width:90%;
+    height:60px;
+    background:#111;
+    border-radius:12px;
     display:flex;
     justify-content:center;
     align-items:center;
-    box-shadow:
-        0 15px 40px rgba(0,0,0,0.8),
-        inset 0 1px 2px rgba(255,255,255,0.08);
+    box-shadow:0 20px 60px rgba(0,0,0,0.9);
+    transition:top 0.6s ease;
     z-index:20;
 }
 
-.logo{
-    font-size:20px;
-    letter-spacing:8px;
-    cursor:pointer;
-    color:#aaa;
-    transition:0.3s;
+.navbar.active{
+    top:20px;
 }
 
-.logo:hover{
-    color:white;
-}
-
-/* ===== MENU QUE EMERGE DEL CUBO ===== */
-.menu{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%) scaleY(0);
-    transform-origin:top;
-    width:260px;
-    background:linear-gradient(145deg,#111,#1a1a1a);
-    border-radius:12px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.9);
-    display:flex;
-    flex-direction:column;
-    transition:transform 0.6s cubic-bezier(.2,1,.3,1);
-    overflow:hidden;
-    z-index:15;
-}
-
-.menu.active{
-    transform:translate(-50%, 60px) scaleY(1);
-}
-
-.menu a{
-    padding:16px 20px;
+.navbar a{
+    margin:0 15px;
     text-decoration:none;
     color:#aaa;
-    font-size:14px;
-    transition:0.2s;
+    font-size:13px;
 }
 
-.menu a:hover{
-    background:#222;
+.navbar a:hover{
     color:white;
-}
-
-/* Submenu */
-.submenu{
-    display:none;
-    flex-direction:column;
-    padding-left:15px;
 }
 
 /* ===== CENTRO ===== */
@@ -96,35 +56,19 @@ body{
     text-align:center;
 }
 
-/* Texto 3D degradado + glitch */
+/* Texto */
 .title{
-    font-size:130px;
-    letter-spacing:25px;
+    font-size:80px;
+    letter-spacing:15px;
     font-weight:300;
-    background:linear-gradient(to bottom, #ffffff, #777777);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    position:relative;
-    z-index:5;
-    animation:glitch 6s infinite;
+    margin-top:40px;
 }
 
-@keyframes glitch{
-    0%{transform:translate(0);}
-    2%{transform:translate(-2px,2px);}
-    4%{transform:translate(2px,-2px);}
-    6%{transform:translate(0);}
-    100%{transform:translate(0);}
-}
-
-/* ===== CUBO 3D ===== */
+/* ===== CUBO BLANCO ===== */
 .cube-wrapper{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    width:220px;
-    height:220px;
+    width:180px;
+    height:180px;
+    margin:auto;
     perspective:900px;
 }
 
@@ -133,34 +77,57 @@ body{
     height:100%;
     position:relative;
     transform-style:preserve-3d;
-    animation:rotateCube 10s infinite linear;
-    transition:transform 0.4s ease;
-}
-
-.cube-wrapper:hover .cube{
-    animation-play-state:paused;
-    transform:rotateX(30deg) rotateY(30deg) scale(1.1);
+    animation:rotateCube 8s infinite linear;
 }
 
 .face{
     position:absolute;
-    width:220px;
-    height:220px;
+    width:180px;
+    height:180px;
     background:white;
-    opacity:0.05;
-    border:1px solid rgba(255,255,255,0.2);
 }
 
-.front  { transform: translateZ(110px); }
-.back   { transform: rotateY(180deg) translateZ(110px); }
-.right  { transform: rotateY(90deg) translateZ(110px); }
-.left   { transform: rotateY(-90deg) translateZ(110px); }
-.top    { transform: rotateX(90deg) translateZ(110px); }
-.bottom { transform: rotateX(-90deg) translateZ(110px); }
+.front  { transform: translateZ(90px); }
+.back   { transform: rotateY(180deg) translateZ(90px); }
+.right  { transform: rotateY(90deg) translateZ(90px); }
+.left   { transform: rotateY(-90deg) translateZ(90px); }
+.top    { transform: rotateX(90deg) translateZ(90px); }
+.bottom { transform: rotateX(-90deg) translateZ(90px); }
 
 @keyframes rotateCube{
     0%{ transform:rotateX(0deg) rotateY(0deg); }
     100%{ transform:rotateX(360deg) rotateY(360deg); }
+}
+
+/* ===== GLITCH ===== */
+.glitch{
+    animation:glitchEffect 0.4s linear;
+}
+
+@keyframes glitchEffect{
+    0%{ filter:contrast(1); transform:translate(0); }
+    25%{ filter:contrast(3); transform:translate(-5px,5px); }
+    50%{ filter:contrast(0.5); transform:translate(5px,-5px); }
+    75%{ filter:contrast(3); transform:translate(-5px,-5px); }
+    100%{ filter:contrast(1); transform:translate(0); }
+}
+
+/* ===== BOTÓN DEV ===== */
+.dev-button{
+    margin-top:25px;
+    background:#111;
+    color:#777;
+    border:1px solid #333;
+    padding:8px 18px;
+    font-size:14px;
+    letter-spacing:4px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.dev-button:hover{
+    background:#222;
+    color:white;
 }
 
 /* Footer */
@@ -169,58 +136,39 @@ body{
     bottom:20px;
     width:100%;
     text-align:center;
-    font-size:12px;
+    font-size:11px;
     color:#444;
     letter-spacing:2px;
-}
-
-/* Texto censurado titilando */
-.censored{
-    animation:flicker 5s infinite;
-}
-
-@keyframes flicker{
-    0%,95%,100%{opacity:1;}
-    96%{opacity:0;}
-    97%{opacity:1;}
-    98%{
-        content:"Project Saturn";
-    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="navbar">
-    <div class="logo" onclick="toggleMenu()">VacIA</div>
-</div>
-
-<div class="cube-wrapper" onclick="toggleMenu()">
-    <div class="cube">
-        <div class="face front"></div>
-        <div class="face back"></div>
-        <div class="face right"></div>
-        <div class="face left"></div>
-        <div class="face top"></div>
-        <div class="face bottom"></div>
-    </div>
-</div>
-
-<div class="menu" id="menu">
+<div class="navbar" id="navbar">
     <a href="#">Empresa</a>
     <a href="#">Derechos</a>
-    <a href="#" onclick="toggleSubmenu(event)">Proyectos ▾</a>
-
-    <div class="submenu" id="submenu">
-        <a href="#">VacIA Animations</a>
-        <a href="#">VacIA Music</a>
-        <a href="/projectsaturn/" id="secretLink">▧▧▧▧▧▧▧ ▧▧▧▧▧▧</a>
-    </div>
+    <a href="#">VacIA Animations</a>
+    <a href="#">VacIA Music</a>
+    <a href="/projectsaturn/">▧▧▧▧▧▧▧ ▧▧▧▧▧▧</a>
 </div>
 
-<div class="center">
+<div class="center" id="mainContent">
+    <div class="cube-wrapper">
+        <div class="cube">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
+    </div>
+
     <div class="title">VacIA</div>
+
+    <!-- BOTÓN TEMPORAL -->
+    <button class="dev-button" onclick="activateSecret()">333</button>
 </div>
 
 <div class="footer">
@@ -228,26 +176,32 @@ body{
 </div>
 
 <script>
-function toggleMenu(){
-    setTimeout(()=>{
-        document.getElementById("menu").classList.toggle("active");
-    },200); // pequeño retraso incómodo
-}
+let inputBuffer = "";
 
-function toggleSubmenu(e){
-    e.preventDefault();
-    const submenu = document.getElementById("submenu");
-    submenu.style.display = submenu.style.display === "flex" ? "none" : "flex";
-}
+document.addEventListener("keydown", function(e){
+    inputBuffer += e.key;
 
-/* Titileo revelando Project Saturn */
-setInterval(()=>{
-    const link = document.getElementById("secretLink");
-    link.textContent = "Project Saturn";
+    if(inputBuffer.endsWith("333")){
+        activateSecret();
+        inputBuffer = "";
+    }
+
+    if(inputBuffer.length > 10){
+        inputBuffer = "";
+    }
+});
+
+function activateSecret(){
+    const content = document.getElementById("mainContent");
+    const navbar = document.getElementById("navbar");
+
+    content.classList.add("glitch");
+
     setTimeout(()=>{
-        link.textContent = "▧▧▧▧▧▧▧ ▧▧▧▧▧▧";
-    },200);
-},6000);
+        navbar.classList.add("active");
+        content.classList.remove("glitch");
+    },400);
+}
 </script>
 
 </body>
