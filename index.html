@@ -2,83 +2,48 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VacIA</title>
 
 <style>
 body{
     margin:0;
-    background:#000;
-    font-family:Arial, Helvetica, sans-serif;
+    background:black;
     overflow:hidden;
+    font-family:Arial, sans-serif;
     color:white;
+    text-align:center;
 }
 
-/* ===== NAVBAR OCULTA ===== */
-.navbar{
-    position:fixed;
-    top:-100px;
-    left:50%;
-    transform:translateX(-50%);
-    width:80%;
-    height:70px;
-    background:#111;
-    border-radius:12px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    box-shadow:0 20px 60px rgba(0,0,0,0.9);
-    transition:top 0.6s ease;
-    z-index:20;
+/* TEXTO CENTRAL */
+h1{
+    position:absolute;
+    top:40%;
+    width:100%;
+    font-size:90px;
+    letter-spacing:10px;
+    background:linear-gradient(white,#888);
+    -webkit-background-clip:text;
+    color:transparent;
 }
 
-.navbar.active{
-    top:25px;
-}
-
-.navbar a{
-    margin:0 20px;
-    text-decoration:none;
-    color:#aaa;
+/* FOOTER */
+footer{
+    position:absolute;
+    bottom:20px;
+    width:100%;
     font-size:14px;
-    pointer-events:none; /* 🔒 nada clickeable */
+    color:#777;
 }
 
-/* ===== CENTRO ===== */
-.center{
+/* CUBO */
+.scene{
     position:absolute;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    text-align:center;
-}
-
-/* Texto */
-.title{
-    font-size:120px;
-    letter-spacing:25px;
-    font-weight:300;
-    margin-top:40px;
-}
-
-/* BOTÓN DEV */
-.dev-btn{
-    margin-top:20px;
-    padding:8px 18px;
-    background:white;
-    color:black;
-    border:none;
-    cursor:pointer;
-    font-size:14px;
-}
-
-/* ===== CUBO ===== */
-.cube-wrapper{
-    width:220px;
-    height:220px;
-    margin:auto;
-    perspective:900px;
-    position:relative;
+    width:200px;
+    height:200px;
+    perspective:800px;
 }
 
 .cube{
@@ -86,143 +51,139 @@ body{
     height:100%;
     position:relative;
     transform-style:preserve-3d;
-    animation:rotateCube 8s infinite linear;
+    animation:rotate 6s infinite linear;
 }
 
 .face{
     position:absolute;
-    width:220px;
-    height:220px;
+    width:200px;
+    height:200px;
     background:white;
+    opacity:0.9;
+    border:1px solid #ccc;
 }
 
-.front  { transform: translateZ(110px); }
-.back   { transform: rotateY(180deg) translateZ(110px); }
-.right  { transform: rotateY(90deg) translateZ(110px); }
-.left   { transform: rotateY(-90deg) translateZ(110px); }
-.top    { transform: rotateX(90deg) translateZ(110px); }
-.bottom { transform: rotateX(-90deg) translateZ(110px); }
+.front  { transform:rotateY(0deg) translateZ(100px);}
+.back   { transform:rotateY(180deg) translateZ(100px);}
+.right  { transform:rotateY(90deg) translateZ(100px);}
+.left   { transform:rotateY(-90deg) translateZ(100px);}
+.top    { transform:rotateX(90deg) translateZ(100px);}
+.bottom { transform:rotateX(-90deg) translateZ(100px);}
 
-@keyframes rotateCube{
-    0%{ transform:rotateX(0deg) rotateY(0deg); }
-    100%{ transform:rotateX(360deg) rotateY(360deg); }
+@keyframes rotate{
+    from{transform:rotateX(0) rotateY(0);}
+    to{transform:rotateX(360deg) rotateY(360deg);}
 }
 
-/* MENSAJE 333 */
-.cube-message{
+/* MENÚ OCULTO */
+#menu{
+    position:fixed;
+    top:0;
+    width:100%;
+    background:#111;
+    padding:20px;
+    display:none;
+}
+
+.menu-item{
+    margin:10px;
+    cursor:default;
+}
+
+#saturn{
+    font-weight:bold;
+}
+
+/* GLITCH */
+.glitch{
+    animation:glitch 0.3s;
+}
+
+@keyframes glitch{
+    0%{filter:invert(1);}
+    50%{filter:contrast(5);}
+    100%{filter:none;}
+}
+
+/* MENSAJE 333 DEL CUBO */
+#cubeMessage{
     position:absolute;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
     font-size:60px;
-    font-weight:bold;
     display:none;
-}
-
-/* ===== GLITCH ===== */
-.glitch{
-    animation:glitchEffect 0.4s linear;
-}
-
-@keyframes glitchEffect{
-    0%{ filter:contrast(1) hue-rotate(0deg); transform:translate(0); }
-    25%{ filter:contrast(2) hue-rotate(90deg); transform:translate(-5px,5px); }
-    50%{ filter:contrast(0.5) hue-rotate(180deg); transform:translate(5px,-5px); }
-    75%{ filter:contrast(3) hue-rotate(270deg); transform:translate(-5px,-5px); }
-    100%{ filter:contrast(1) hue-rotate(0deg); transform:translate(0); }
-}
-
-/* Footer */
-.footer{
-    position:fixed;
-    bottom:20px;
-    width:100%;
-    text-align:center;
-    font-size:12px;
-    color:#555;
-    letter-spacing:2px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="navbar" id="navbar">
-    <a>Empresa</a>
-    <a>Derechos</a>
-    <a>VacIA Animations</a>
-    <a>VacIA Music</a>
-    <a id="saturn">▧▧▧▧▧▧▧ ▧▧▧▧▧▧</a>
+<div id="menu">
+    <div class="menu-item">Empresa</div>
+    <div class="menu-item">Derechos</div>
+    <div class="menu-item">Proyectos</div>
+    <div class="menu-item" id="saturn">■■■■■■ ■■■■■■</div>
 </div>
 
-<div class="center" id="mainContent">
-    <div class="cube-wrapper">
-        <div class="cube"></div>
-        <div class="cube-message" id="cubeMessage">333</div>
+<h1>VacIA</h1>
+
+<div class="scene">
+    <div class="cube" id="cube">
+        <div class="face front"></div>
+        <div class="face back"></div>
+        <div class="face right"></div>
+        <div class="face left"></div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
     </div>
-
-    <div class="title">VacIA</div>
-
-    <button class="dev-btn" onclick="activateSecret()">333</button>
 </div>
 
-<div class="footer">
-    Todos los derechos observados · VacIA Entertainment
-</div>
+<div id="cubeMessage">333</div>
+
+<footer>
+Todos los derechos observados — VacIA Entertainment
+</footer>
 
 <script>
-let inputBuffer = "";
+let inputSequence = "";
 let count3 = 0;
 
 document.addEventListener("keydown", function(e){
 
     if(e.key === "3"){
+        inputSequence += "3";
         count3++;
-        inputBuffer += "3";
 
-        if(inputBuffer.endsWith("333")){
-            activateSecret();
-            inputBuffer = "";
+        // Activar menú con 333
+        if(inputSequence === "333"){
+            document.body.classList.add("glitch");
+            document.getElementById("menu").style.display = "block";
+            setTimeout(()=>document.body.classList.remove("glitch"),300);
+            inputSequence = "";
         }
 
+        // Si presiona 3 33 veces
         if(count3 === 33){
-            showCubeMessage();
-            count3 = 0;
+            let msg = document.getElementById("cubeMessage");
+            msg.style.display="block";
+            setTimeout(()=>msg.style.display="none",2000);
+            count3=0;
         }
-
     }else{
-        inputBuffer = "";
+        inputSequence="";
     }
 });
 
-function activateSecret(){
-    const content = document.getElementById("mainContent");
-    const navbar = document.getElementById("navbar");
-
-    content.classList.add("glitch");
-
-    setTimeout(()=>{
-        navbar.classList.add("active");
-        content.classList.remove("glitch");
-    },400);
-}
-
-function showCubeMessage(){
-    const msg = document.getElementById("cubeMessage");
-    msg.style.display="block";
-    setTimeout(()=>msg.style.display="none",2000);
-}
-
-/* TITILEO SATURN */
+/* TITILEO PROJECT SATURN */
 let saturn = document.getElementById("saturn");
-
 setInterval(()=>{
     saturn.textContent="Project Saturn";
     setTimeout(()=>{
-        saturn.textContent="▧▧▧▧▧▧▧ ▧▧▧▧▧▧";
+        saturn.textContent="■■■■■■ ■■■■■■";
     },500);
 },6000);
 </script>
 
 </body>
-</html> 
+</html>
