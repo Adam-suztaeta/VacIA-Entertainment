@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>chill-bill Antivirus</title>
+
+<style>
+body{
+    margin:0;
+    background:black;
+    color:#00ff00;
+    font-family:"Courier New", monospace;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    transition:0.3s;
+}
+
+#chat{
+    width:80%;
+    max-width:800px;
+    background:black;
+    border:2px solid #00ff00;
+    padding:20px;
+    margin-top:40px;
+    box-shadow:0 0 20px #00ff0055;
+    transition:0.3s;
+}
+
+#messages{
+    min-height:300px;
+    white-space:pre-wrap;
+}
+
+#input{
+    width:100%;
+    background:black;
+    border:none;
+    color:#00ff00;
+    font-family:"Courier New", monospace;
+    font-size:16px;
+    outline:none;
+}
+
+/* BOTÓN SATURN */
+
+#saturnAccess{
+    display:none;
+    margin-top:20px;
+    text-align:center;
+}
+
+#saturnBtn{
+    background:black;
+    color:#00ff00;
+    border:1px solid #00ff00;
+    padding:10px 20px;
+    font-family:"Courier New", monospace;
+    cursor:pointer;
+}
+
+#saturnBtn:hover{
+    background:#001100;
+}
+
+/* ROBOT */
+
+#robot{
+    margin-top:40px;
+    width:200px;
+    height:200px;
+    background:#111;
+    border-radius:5px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 0 20px #00ff0055;
+}
+
+#face{
+    width:150px;
+    height:150px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+}
+
+.eyes{
+    display:flex;
+    gap:30px;
+}
+
+.eye{
+    width:35px;
+    height:35px;
+    background:#00ff00;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    color:black;
+}
+
+.mouth{
+    width:60px;
+    height:12px;
+    background:#00ff00;
+    transition:0.3s;
+}
+
+.sad{
+    height:8px;
+    border-radius:50% 50% 0 0;
+}
+
+.celeste{
+    background:#00bfff !important;
+    color:white !important;
+    border-color:white !important;
+}
+
+.violeta{
+    background:#2a003f !important;
+    color:#bb00ff !important;
+    border-color:#bb00ff !important;
+}
+</style>
+</head>
+<body>
+
+<div id="robot">
+    <div id="face">
+        <div class="eyes">
+            <div class="eye"></div>
+            <div class="eye"></div>
+        </div>
+        <div class="mouth"></div>
+    </div>
+</div>
+
+<div id="chat">
+    <div id="messages"></div>
+    <input type="text" id="input" placeholder="C:\>">
+</div>
+
+<div id="saturnAccess">
+    <button id="saturnBtn">ABRIR ARCHIVO SATURN</button>
+</div>
+
+<script>
+
+let saturnPasswordStage = false;
+let vaciaPasswordStage = false;
+let malwarePasswordStage = false; /* 👈 agregado */
+let typing = false;
+
+const messages = document.getElementById("messages");
+const input = document.getElementById("input");
+const eyes = document.querySelectorAll(".eye");
+const mouth = document.querySelector(".mouth");
+const chat = document.getElementById("chat");
+const saturnAccess = document.getElementById("saturnAccess");
+
+/* TYPE EFFECT */
+
+function typeText(text, speed = 20){
+    return new Promise(resolve=>{
+        typing = true;
+        let i = 0;
+        let line = document.createElement("div");
+        messages.appendChild(line);
+
+        function write(){
+            if(i < text.length){
+                line.textContent += text.charAt(i);
+                i++;
+                setTimeout(write, speed);
+            }else{
+                messages.appendChild(document.createElement("br"));
+                typing = false;
+                resolve();
+            }
+        }
+        write();
+        messages.scrollTop = messages.scrollHeight;
+    });
+}
+
+/* BOOT RESTAURADO */
+
+async function boot(){
+    await typeText("Inicializando sistema...");
+    await typeText("Cargando protocolos de seguridad...");
+    await typeText("Iniciando chill-bill Antivirus v1.9.7");
+    await typeText("Acceso monitoreado.");
+    await typeText("");
+    await typeText("Hola! Soy un ███████ especial.");
+    await typeText("Creado por ███████.");
+    await typeText("Propiedad de VACIA Studios.");
+    await typeText("");
+    await typeText("Comandos disponibles:");
+    await typeText("Hola");
+    await typeText("Personal");
+    await typeText("Entertainment");
+    await typeText("Creadores");
+    await typeText("");
+}
+boot();
+
+/* EVENTOS */
+
+function activateSusto(){
+    eyes.forEach(e=> e.textContent="X");
+    setTimeout(()=> eyes.forEach(e=> e.textContent=""),1000);
+}
+
+function sadFace(){
+    mouth.classList.add("sad");
+    setTimeout(()=> mouth.classList.remove("sad"),1000);
+}
+
+function celesteFlash(){
+    chat.classList.add("celeste");
+    sadFace();
+    setTimeout(()=> chat.classList.remove("celeste"),1000);
+}
+
+function violetGlitch(){
+    chat.classList.add("violeta");
+    messages.innerHTML += "\n▒▒▒ ERROR 333 ▒▒▒ 333 ▒▒▒ ERROR ▒▒▒\n";
+    setTimeout(()=> location.reload(),1500);
+}
+
+/* RESPUESTAS */
+
+async function respond(text){
+
+    let lower = text.trim().toLowerCase();
+
+    if(lower==="susto"){ activateSusto(); return; }
+    if(lower==="adam"){ sadFace(); return; }
+    if(lower==="lily"){ celesteFlash(); return; }
+    if(lower.includes("violet") || lower.includes("baiolet")){ violetGlitch(); return; }
+    if(lower==="chau" || lower==="adios" || lower==="adiós"){ history.back(); return; }
+
+    if(lower==="project_vacia_status"){
+        vaciaPasswordStage=true;
+        await typeText("Archivo detectado.");
+        await typeText("Ingrese contraseña.");
+        return;
+    }
+
+    if(vaciaPasswordStage && lower==="sustosmg"){
+        vaciaPasswordStage=false;
+        await typeText("Contraseña correcta.");
+        await typeText("");
+        await typeText("Proyecto VacIA: Active");
+        await typeText("Personas online ▒▒▒ ");
+        await typeText("Nuevos usuarios: 1");
+        await typeText("(Copia de Usuario creado en VacIA)");
+        return;
+    }
+
+    if(lower==="project.saturn.archive_14.7_update"){
+        saturnPasswordStage=true;
+        await typeText("Archivo detectado.");
+        await typeText("Ingrese contraseña.");
+        return;
+    }
+
+    if(lower.includes("saturn") && lower!=="project.saturn.archive_14.7_update"){
+        await typeText("Acceso denegado.");
+        return;
+    }
+
+    if(saturnPasswordStage && lower==="adamandlily"){
+        saturnPasswordStage=false;
+        await typeText("Contraseña correcta.");
+        await typeText("Archivo desbloqueado.");
+        saturnAccess.style.display="block";
+        return;
+    }
+
+    /* ========================= */
+    /* NUEVO COMANDO SECRETO     */
+    /* ========================= */
+
+    if(lower==="malware"){
+        await typeText("Hay aproximadamente ▒▒▒ malwares activos.");
+        await typeText("Hay 1 ▒▒▒");
+        return;
+    }
+
+    if(lower==="malware.lord_sat"){
+        malwarePasswordStage = true;
+        await typeText("Malware detectado.");
+        await typeText("Ingrese contraseña.");
+        return;
+    }
+
+    if(malwarePasswordStage && lower==="susto333"){
+        malwarePasswordStage = false;
+        await typeText("Contraseña correcta.");
+        await typeText("Malware peligroso en expansion conciente de su existencia en VacIA y con control de administrador heredado. Extremadamente peligroso.");
+        return;
+    }
+
+    switch(lower){
+
+        case "hola":
+            await typeText("Saludo detectado. Hola! Bienvenido usuario.");
+            break;
+
+        case "personal":
+            await typeText("Archivo_Personal:");
+            await typeText("VACIA Entertainment");
+            await typeText("Numero de trabajadores activos: ██████");
+            break;
+
+        case "entertainment":
+            await typeText("VacIA Entertainment.");
+            await typeText("Estado: Activo.");
+            break;
+
+        case "creadores":
+            await typeText("Los creadores de VacIA Studios son:");
+            await typeText("A.5U5TO");
+            await typeText("L.B1ll");
+            break;
+
+        default:
+            await typeText("Comando no reconocido.");
+    }
+}
+
+input.addEventListener("keypress", async function(e){
+    if(e.key==="Enter" && !typing){
+        let text=input.value.trim();
+        if(!text) return;
+        messages.innerHTML += "C:\\> " + text + "\n";
+        input.value="";
+        await respond(text);
+    }
+});
+
+document.getElementById("saturnBtn").addEventListener("click", function(){
+    window.location.href = "saturn.html";
+});
+
+</script>
+</body>
+</html>
