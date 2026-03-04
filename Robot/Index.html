@@ -263,14 +263,14 @@ async function respond(text){
         return;
     }
 
-    if(lower==="projectsaturn.archive_14.7"){
+    if(lower==="projectsat.archive_14.7"){
         saturnPasswordStage=true;
         await typeText("Archivo detectado.");
         await typeText("Ingrese contraseña.");
         return;
     }
 
-    if(lower.includes("saturn") && lower!=="projectsaturn.archive_14.7"){
+    if(lower.includes("saturn") && lower!=="projectsat.archive_14.7"){
         await typeText("Acceso denegado.");
         return;
     }
