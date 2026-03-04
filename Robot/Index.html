@@ -263,14 +263,14 @@ async function respond(text){
         return;
     }
 
-    if(lower==="project.saturn.archive_14.7_update"){
+    if(lower==="projectsaturn.archive_14.7"){
         saturnPasswordStage=true;
         await typeText("Archivo detectado.");
         await typeText("Ingrese contraseña.");
         return;
     }
 
-    if(lower.includes("saturn") && lower!=="project.saturn.archive_14.7_update"){
+    if(lower.includes("saturn") && lower!=="projectsaturn.archive_14.7"){
         await typeText("Acceso denegado.");
         return;
     }
@@ -303,7 +303,7 @@ async function respond(text){
     if(malwarePasswordStage && lower==="susto333"){
         malwarePasswordStage = false;
         await typeText("Contraseña correcta.");
-        await typeText("Malware peligroso en expansion conciente de su existencia en VacIA y con control de administrador heredado. Extremadamente peligroso.");
+        await typeText("Malware peligroso en expansion, conciente de su existencia en VacIA y con control de administrador heredado. Extremadamente peligroso.");
         return;
     }
 
@@ -346,7 +346,7 @@ input.addEventListener("keypress", async function(e){
 });
 
 document.getElementById("saturnBtn").addEventListener("click", function(){
-    window.location.href = "saturn.html";
+    window.location.href = "projectsaturn/index.html";
 });
 
 </script>
